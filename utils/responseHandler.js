@@ -1,11 +1,11 @@
 class BaseResponse {
-  constructor(status = false, message = '', data = null, isOperational = false, stack = null) {
-    this.status = status;
+  constructor(success = false, message = '', data = null, isOperational = false, stack = null) {
+    this.success = success;
     this.message = message;
-    if (status == true) {
+    if (success == true) {
       this.data = data;
     }
-    if (status == false && process.env.NODE_ENV !== 'production') {
+    if (success == false && process.env.NODE_ENV !== 'production') {
       this.isOperational = isOperational;
     }
     if (stack && process.env.NODE_ENV !== 'production') {

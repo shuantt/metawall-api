@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema(
     {
         email: {
             type: String,
-            required: [true, 'email必填'],
+            required: [true, 'email 必填'],
             unique: true,
             lowercase: true,
             validate: function (value) {
@@ -35,20 +35,11 @@ const userSchema = new mongoose.Schema(
         photo: {
             type: String,
             default: '',
-        },
-        role:{
-            type: String,
-            default: 'user',
-            enum: ['user', 'admin'],
-        },
-        isActive: {
-            type: Boolean,
-            default: true,
-        },
+        }
     },
     {
         timestamps: true,
-        versionKey: false,
+        // versionKey: false,
         virtuals: true,
         toJSON: {
             versionKey: false,
@@ -67,18 +58,14 @@ userSchema.virtual('followings', {
     ref: 'Follow',
     localField: '_id',
     foreignField: 'user',
+    options: { select: 'following -user' }
 });
 
 userSchema.virtual('followers', {
     ref: 'Follow',
     localField: '_id',
-    foreignField: 'following'
-});
-
-userSchema.virtual('like', {
-    ref: 'Post',
-    localField: '_id',
-    foreignField: 'likes',
+    foreignField: 'following',
+    options: { select: 'user -following' }
 });
 
 const User = mongoose.model('User', userSchema);

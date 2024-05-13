@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const User = require('../models/usersModel');
 const Post = require('../models/postsModel');
 const Follow = require('../models/followsModel');
@@ -5,7 +6,6 @@ const { sendSuccess } = require('../utils/responseHandler');
 const { appError } = require('../utils/errorHandler');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
-const mongoose = require('mongoose');
 
 const usersController = {
   getUsers: async (req, res, next) => {
@@ -83,16 +83,22 @@ const usersController = {
       { name: name, photo: photo, gender: gender },
       { new: true }
     ).select('name photo gender');
-    console.log(updateUser)
     sendSuccess(res, 200, '更新使用者資料成功', updateUser);
   },
 
   getUserPosts: async (req, res, next) => {
     const { userId } = req.params;
-    const posts = await Post.find({ user: userId }).populate({
-      path: 'user',
-    });
-    sendSuccess(res, 200, posts.length === 0 ? "使用者無貼文" : '取得使用者貼文成功', posts);
+    const userPosts = await Post.find({ user: userId })
+      .populate({ path: 'user' })
+      .populate({ path: 'comments' })
+      .populate({ path: 'likes' });
+
+    if (userPosts.length === 0) {
+      return next(appError(400, '用戶尚未發布任何貼文'));
+    }
+    else {
+      sendSuccess(res, 200, '取得使用者貼文成功', userPosts);
+    }
   },
 
   getFollowers: async (req, res, next) => {
@@ -100,56 +106,108 @@ const usersController = {
     if (!userId) {
       return next(appError(400, '請輸入會員ID'));
     }
-    const user = await User.findById(userId)
-      .populate({
-        path: 'followers',
-        populate: { path: 'user', select: 'name photo' },
-      })
-      .select('name');
-    sendSuccess(res, 200, '取得追隨者資料', user);
+
+    const followers = await User.findById(userId)
+      .populate(
+        {
+          path: 'followers',
+          populate: { path: 'user', select: 'name photo' }
+        }
+      ).select('name followers');
+
+    sendSuccess(res, 200, '取得追隨者資料', followers);
   },
 
   getFollowings: async (req, res, next) => {
     const { userId } = req.params;
+
     if (!userId) {
       return next(appError(400, '請輸入會員ID'));
     }
 
-    const user = await User.findById(userId)
+    const followings = await User.findById(userId)
       .populate({
         path: 'followings',
-        populate: { path: 'following', select: 'name photo' },
-      })
-      .select('name');
-    sendSuccess(res, 200, '取得用戶追蹤資料', user.followings);
-  },
-  deleteUsers: async (req, res, next) => {
-    let { userId } = req.user;
-    const isAdmin = await User.findById(userId).select('isAdmin');
-    if (!isAdmin) {
-      return next(appError(400, '無刪除權限'));
-    }
-    const deleteResult = await User.deleteMany({});
-    sendSuccess(res, 200, '刪除所有使用者成功', []);
+        populate: { path: 'following', select: '_id name photo' },
+      }).select('name followings');
+
+    sendSuccess(res, 200, '取得用戶追蹤資料', followings);
   },
 
-  deleteUser: async (req, res, next) => {
-    console.log(req.user)
+  followUser: async (req, res, next) => {
     const { userId } = req.user;
     const { targetUserId } = req.params;
-    const user = await User.findById(userId).select('role');
+
+    if (!userId || !targetUserId) {
+      return next(appError(400, 'userId 和 targetUserId 不可為空'));
+    }
+
+    if (userId === targetUserId) {
+      return next(appError(400, '無法追蹤自己'));
+    }
+
+    const result = await Follow.create({ user: userId, following: targetUserId });
+
+    if (!result) {
+      return next(appError(400, '追蹤失敗'));
+    } else {
+      sendSuccess(res, 200, '追蹤成功', []);
+    }
+  },
+
+  unfollowUser: async (req, res, next) => {
+    const { userId } = req.user;
+    const { targetUserId } = req.params;
+
+    if (!userId || !targetUserId) {
+      return next(appError(400, 'userId, targetUserId 不可為空'));
+    }
+
+    const following = await Follow.findOne({ user: userId, following: targetUserId });
+    
+    if(!following) {
+      return next(appError(400, '未追蹤此用戶'));
+    }
+
+    const result = await Follow.findOneAndDelete({ user: userId, following: targetUserId });
+
+    if (!result) {
+      return next(appError(400, '取消追蹤失敗'));
+    } else {
+      sendSuccess(res, 200, '取消追蹤成功', []);
+    }
+  },
+
+  // deleteUsers: async (req, res, next) => {
+  //   let { userId } = req.user;
+  //   const isAdmin = await User.findById(userId).select('isAdmin');
+  //   if (!isAdmin) {
+  //     return next(appError(400, '無刪除權限'));
+  //   }
+  //   const deleteResult = await User.deleteMany({});
+  //   sendSuccess(res, 200, '刪除所有使用者成功', []);
+  // },
+
+  deleteUser: async (req, res, next) => {
+    const { userId } = req.user;
+    const { targetUserId } = req.params;
 
     if (!targetUserId) {
       return next(appError(400, '請輸入欲刪除會員 Id'));
+    }
+
+    const user = await User.findById(targetUserId);
+
+    if (!user) {
+      return next(appError(400, '找不到會員'));
     }
 
     if (userId !== targetUserId && user.role !== 'admin') {
       return next(appError(400, '無刪除權限'));
     }
 
-    const deactivateAccount = await User.findByIdAndUpdate(userId, { isActive: false }, { new: true });
-
-    sendSuccess(res, 200, '已停用帳號', []);
+    await User.findByIdAndDelete(targetUserId);
+    sendSuccess(res, 200, '已刪除會員', []);
   }
 };
 

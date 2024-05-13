@@ -32,21 +32,6 @@ const authController = {
       return next(appError(400, 'Email已註冊'));
     }
 
-    if (adminPassword){
-      if(adminPassword == "shuan"){
-        password = await bcrypt.hash(password, 12);
-        const newUser = await User.create({
-          name: name,
-          email: email,
-          password: password,
-          role: 'admin',
-        });
-        const token = generateJwt(newUser);
-        const rtnUserData = { name: newUser.name, token: token };
-        sendSuccess(res, 200, '註冊成功', rtnUserData);
-      }
-    }
-
     //jwt加密
     password = await bcrypt.hash(password, 12);
 
@@ -58,7 +43,7 @@ const authController = {
     });
 
     const token = generateJwt(newUser);
-    const rtnUserData = { name: newUser.name, token: token };
+    const rtnUserData = { userId:newUser._id , name: newUser.name, token: token };
 
     sendSuccess(res, 200, '註冊成功', rtnUserData);
   },

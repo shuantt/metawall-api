@@ -16,7 +16,7 @@ const followsSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-    versionKey: false,
+    // versionKey: false,
     virtuals: true,
     toJSON: {
       versionKey: false,
@@ -30,6 +30,8 @@ const followsSchema = new mongoose.Schema(
     toObject: { virtuals: true, versionKey: false },
   }
 );
+
+
 
 // followsSchema.pre(/^find/, function (next) {
 //     this.populate({

@@ -7,28 +7,21 @@ const { authJwt } = require('../service/authService.js');
 // 驗證 JWT Token
 // router.use(authJwt);
 
-// 取得所有貼文
+// 貼文相關 API
 router.get('/', authJwt, handleErrorAsync(postController.getAllPosts));
-
-// 取得單一貼文
 router.get('/:postId', authJwt, handleErrorAsync(postController.getPost));
-
-// 新增貼文
 router.post('/', authJwt, handleErrorAsync(postController.createPost));
-
-// 更新貼文
 router.patch('/:postId', authJwt, handleErrorAsync(postController.updatePost));
-
-// 刪除貼文
 router.delete('/:postId', authJwt, handleErrorAsync(postController.deletePost));
+// router.delete('/', authJwt, handleErrorAsync(postController.deletePosts));
 
-// 刪除全部貼文
-router.delete('/', authJwt, handleErrorAsync(postController.deletePosts));
+// 留言相關 API
+router.post('/:postId/comments', authJwt, handleErrorAsync(postController.createComment));
+router.patch('/:postId/comments/:commentId', authJwt, handleErrorAsync(postController.updateComment));
+router.delete('/:postId/comments/:commentId', authJwt, handleErrorAsync(postController.deleteComment));
 
-// 貼文留言
-router.post('/:postId/comments', authJwt, handleErrorAsync(postController.createPost));
-
-// 貼文按讚
-router.post('/:postId/likes', authJwt, handleErrorAsync(postController.createPost));
+// 按讚相關 API
+router.post('/:postId/likes', authJwt, handleErrorAsync(postController.likePost));
+router.delete('/:postId/likes', authJwt, handleErrorAsync(postController.unlikePost));
 
 module.exports = router;

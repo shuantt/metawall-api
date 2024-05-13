@@ -14,7 +14,6 @@ const indexRouter = require('./routes/indexRouter');
 const authRouter = require('./routes/authRouter'); // 登入、註冊、登出
 const usersRouter = require('./routes/usersRouter'); // 會員、追蹤、被追蹤
 const postsRouter = require('./routes/postsRouter'); // 貼文、留言、按讚
-const followsRouter = require('./routes/followsRouter'); // 追蹤、被追蹤
 
 // 載入設定檔
 loadConfig(process.env.NODE_ENV);
@@ -43,7 +42,6 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
-app.use('/follows', followsRouter);
 
 app.use((req, res, next) => {
   sendError(res, appError(404, '無此路由'));
