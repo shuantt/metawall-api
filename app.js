@@ -3,6 +3,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./swagger-output.json');
 const { loadConfig } = require('./config/configLoader');
 const { connectDB } = require('./database/dbConnection');
 const { setCorsOptions } = require('./config/configureCors');
@@ -43,12 +45,16 @@ app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 
+// Swagger API 文件
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 app.use((req, res, next) => {
   sendError(res, appError(404, '無此路由'));
 });
 
 // 錯誤處理
 app.use(function (err, req, res, next) {
+  console.log(err)
   sendError(res, err);
 });
 

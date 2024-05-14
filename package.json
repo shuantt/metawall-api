@@ -6,7 +6,8 @@
     "start": "set NODE_ENV=production&& node ./bin/www",
     "prod": "set NODE_ENV=production&& nodemon ./bin/www",
     "dev": "set NODE_ENV=development&& nodemon ./bin/www",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --write .",
+    "swagger":"node ./swagger.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
