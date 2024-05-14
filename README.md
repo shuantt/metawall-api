@@ -1,10 +1,14 @@
-# 六角 Node.js 直播班
+# 六角 Node.js 直播班 主線任務 
+## Hexschool Node.js Bootcamp - Final Project
 
-## Week3 - 從 express MVC 架構建立 RESTful API
+## MetaWall - A social platform
+- 平台說明：MetaWall是一個社交平台，您可以在這裡分享想法、留下評論，並按讚朋友的文章。還可以關注喜歡的用戶，以獲得他們的最新消息。
+- Project Intro: On MetaWall, you can share your thoughts, leave comments, and like your friends' posts. You can also follow your favorite users to stay updated with their latest activities.
 
-- 使用 express 框架
-- 加入 models, routes, controllers
-
-## Week 4 - 利用 middleware 加入錯誤處理
-
-## Week 5 - 加入 jwt 登入
+## 技術選擇 Tech
+- Express framework witch MVC pattern
+- MongoDB / Mongoose
+- Followed RESTful API design principles
+- JWT authentication / Google OAuth 2.0
+- Firebase image upload APIs
+- Swagger for API documentation 
