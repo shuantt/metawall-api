@@ -18,10 +18,6 @@ const postsController = {
       search.createdAt = { $gte: req.query.startTime, $lte: req.query.endTime };
     }
 
-    if (req.query.name) {
-      search.name = req.query.name;
-    }
-
     if (req.query.keyword) {
       search.content = { $regex: req.query.keyword, $options: 'i', };
     }
@@ -42,7 +38,7 @@ const postsController = {
 
   getPost: async (req, res, next) => {
     let { postId } = req.params;
-    console.log(postId)
+
     const post = await Post.findById(postId)
       .populate({ path: 'user' })
       .populate({ path: 'comments' })
@@ -64,7 +60,8 @@ const postsController = {
     }
 
     const newPost = { user: userId, content: content, image: image };
-    const result = await Post.create(newPost, { new: true });
+
+    const result = await Post.create(newPost);
 
     if (!result) {
       return next(appError(400, '新增貼文失敗'));
@@ -124,12 +121,13 @@ const postsController = {
       return next(appError(400, '無刪除權限'));
     }
 
-    const result = await Post.findByIdAndDelete(req.params.id);
+    const result = await Post.findByIdAndDelete(postId);
+
     if (!result) {
       return next(appError(400, '刪除貼文失敗'));
     }
     else {
-      sendSuccess(res, 200, '刪除貼文成功', result);
+      sendSuccess(res, 200, '刪除貼文成功');
     }
   },
 

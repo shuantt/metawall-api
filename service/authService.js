@@ -15,6 +15,7 @@ const generateJwt = function generateJwt(user) {
 // 驗證 JWT Token
 const authJwt = handleErrorAsync(async (req, res, next) => {
   let token = null;
+
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     token = req.headers.authorization.split(' ')[1];
   }
