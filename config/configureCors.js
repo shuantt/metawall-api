@@ -2,7 +2,12 @@
 function setCorsOptions(env) {
   let corsOptions;
   if (env === 'production') {
-    const whitelist = ['https://www.example.com', 'https://example.com'];
+    const whitelist = [
+      'https://www.example.com', 
+      'https://example.com',
+      'http://127.0.0.1:3000',
+      'http://localhost:3000'
+    ];
     corsOptions = {
       origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1 || !origin) {
