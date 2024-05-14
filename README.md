@@ -5,7 +5,7 @@
 ## Tech
 - Express framework witch MVC pattern
 - MongoDB / Mongoose
-- Followed RESTful API design principles
+- Follow RESTful API design principles
 - JWT authentication / Google OAuth 2.0
 - Firebase image upload APIs
 - Swagger for API documentation 
