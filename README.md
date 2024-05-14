@@ -1,5 +1,4 @@
-# 六角 Node.js 直播班 主線任務 
-## Hexschool Node.js Bootcamp - Final Project
+# 六角 Node.js 直播班主線任務 ( Hexschool Node.js Bootcamp - Final Project)
 
 ## MetaWall - A social platform
 - 平台說明：MetaWall是一個社交平台，您可以在這裡分享想法、留下評論，並按讚朋友的文章。還可以關注喜歡的用戶，以獲得他們的最新消息。
