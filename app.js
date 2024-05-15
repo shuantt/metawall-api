@@ -6,22 +6,23 @@ const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./swagger-output.json');
 const { loadConfig } = require('./config/configLoader');
-const { connectDB } = require('./database/dbConnection');
+const { connectDB } = require('./connections/dbConnection');
 const { setCorsOptions } = require('./config/configureCors');
 const { sendError } = require('./utils/responseHandler');
-const { appError, exceptionError } = require('./utils/errorHandler');
-
-// 載入路由
-const indexRouter = require('./routes/indexRouter');
-const authRouter = require('./routes/authRouter'); // 登入、註冊、登出
-const usersRouter = require('./routes/usersRouter'); // 會員、追蹤、被追蹤
-const postsRouter = require('./routes/postsRouter'); // 貼文、留言、按讚
+const { appError } = require('./utils/errorHandler');
 
 // 載入設定檔
 loadConfig(process.env.NODE_ENV);
 
 // 連接資料庫
 connectDB(process.env.NODE_ENV);
+
+// 載入路由
+const indexRouter = require('./routes/indexRouter');
+const authRouter = require('./routes/authRouter'); // 登入、註冊、登出
+const usersRouter = require('./routes/usersRouter'); // 會員、追蹤、被追蹤
+const postsRouter = require('./routes/postsRouter'); // 貼文、留言、按讚
+const uploadRouter = require('./routes/uploadRouter'); // 上傳圖片
 
 // 處理未捕捉到的錯誤
 process.on('uncaughtException', function (err) {
@@ -44,6 +45,7 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
+app.use('/upload', uploadRouter);
 
 // Swagger API 文件
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));

@@ -3,7 +3,7 @@
   "info": {
     "version": "1.0.0",
     "title": "Metawall API",
-    "description": "Metawall API Documentation"
+    "description": "Metawall API Documentation "
   },
   "host": "127.0.0.1:3000",
   "basePath": "/",
@@ -19,6 +19,10 @@
     {
       "name": "Posts",
       "description": "貼文相關 API，包含貼文、留言、貼文按讚等功能"
+    },
+    {
+      "name": "Upload",
+      "description": "上傳 API"
     }
   ],
   "schemes": [
@@ -168,12 +172,12 @@
           }
         }
       },
-      "patch": {
+      "delete": {
         "tags": [
           "Users"
         ],
-        "summary": "更新會員資料",
-        "description": "更新會員資料",
+        "summary": "刪除特定會員",
+        "description": "刪除會員，需 admin 帳號權限",
         "parameters": [
           {
             "name": "userId",
@@ -181,7 +185,28 @@
             "required": true,
             "type": "string",
             "description": "會員 ID"
-          },
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/users/me/profile": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "更新會員資料",
+        "description": "更新會員資料",
+        "parameters": [
           {
             "name": "body",
             "in": "body",
@@ -219,35 +244,9 @@
             "apiKeyAuth": []
           }
         ]
-      },
-      "delete": {
-        "tags": [
-          "Users"
-        ],
-        "summary": "刪除特定會員",
-        "description": "刪除會員",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "會員 ID"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
       }
     },
-    "/users/{userId}/password": {
+    "/users/me/password": {
       "patch": {
         "tags": [
           "Users"
@@ -255,13 +254,6 @@
         "summary": "重設密碼",
         "description": "重設密碼",
         "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "會員 ID"
-          },
           {
             "name": "body",
             "in": "body",
@@ -281,6 +273,25 @@
             }
           }
         ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/users/me": {
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "刪除會員",
+        "description": "刪除會員",
         "responses": {
           "default": {
             "description": ""
@@ -452,7 +463,8 @@
             "in": "query",
             "description": "查詢貼文數量，上限 100 筆，預設 100 筆",
             "required": false,
-            "type": "integer"
+            "type": "integer",
+            "maximum": 100
           },
           {
             "name": "sort",
@@ -779,6 +791,33 @@
             "required": true,
             "type": "string",
             "description": "貼文 id"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/upload/file": {
+      "post": {
+        "tags": [
+          "Upload"
+        ],
+        "description": "上傳圖片",
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "圖片",
+            "required": true,
+            "type": "file"
           }
         ],
         "responses": {

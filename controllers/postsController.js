@@ -118,7 +118,7 @@ const postsController = {
     const postOwner = post.user._id.toString();
 
     if (postOwner !== userId) {
-      return next(appError(400, '無刪除權限'));
+      return next(appError(403, '無刪除權限'));
     }
 
     const result = await Post.findByIdAndDelete(postId);
@@ -199,7 +199,7 @@ const postsController = {
     const commentOwner = comment.user._id.toString();
 
     if (commentOwner !== userId) {
-      return next(appError(400, '無刪除權限'));
+      return next(appError(403, '無刪除權限'));
     }
 
     const result = await Comment.findByIdAndDelete(commentId);
@@ -248,7 +248,7 @@ const postsController = {
     const like = await Like.findOne({ user: userId, post: postId });
 
     if (!like) {
-      return next(appError(400, '尚未按讚，無法取消'));
+      return next(appError(404, '尚未按讚，無法取消'));
     }
 
     const result = await Like.findByIdAndDelete(like._id);

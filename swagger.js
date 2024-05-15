@@ -8,7 +8,7 @@ const doc = {
     info: {
         version: '1.0.0',
         title: 'Metawall API',
-        description: 'Metawall API Documentation',
+        description: 'Metawall API Documentation ',
     },
     host: '127.0.0.1:3000',
     basePath: '/',
@@ -25,6 +25,10 @@ const doc = {
         {
             name: 'Posts',
             description: '貼文相關 API，包含貼文、留言、貼文按讚等功能'
+        },
+        {
+            name: 'Upload',
+            description: '上傳 API'
         }
     ],
     securityDefinitions: {

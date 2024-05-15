@@ -34,7 +34,7 @@ const usersController = {
   },
 
   resetPassword: async (req, res, next) => {
-    let { userId } = req.params;
+    let { userId } = req.user;
     let { password, confirmPassword } = req.body;
 
     if (!password || !confirmPassword) {
@@ -50,44 +50,48 @@ const usersController = {
     }
 
     const user = await User.findById(userId);
+
     if (!user) {
       return next(appError(400, '找不到使用者'));
     }
 
     password = await bcrypt.hash(password, 12);
+
     const updatePassword = await User.findByIdAndUpdate(
       userId,
       { password: password },
       { new: true }
     );
+
     sendSuccess(res, 200, '密碼修改成功');
   },
 
   updateProfile: async (req, res, next) => {
-    const { updateUserId } = req.params;
-    const { userId } = req.user.userId;
-
-    if (updateUserId !== userId) {
-      return next(appError(400, '不可修改其他使用者資料'));
-    }
+    const { userId } = req.user;
     let { name, photo, gender } = req.body;
+
     // if (!name || !photo || !gender) {
     //   return next(appError(400, 'name 為必填'));
     // }
+
     const user = await User.findById(userId);
+
     if (!user) {
       return next(appError(400, '找不到使用者'));
     }
+
     const updateUser = await User.findByIdAndUpdate(
       userId,
       { name: name, photo: photo, gender: gender },
       { new: true }
     ).select('name photo gender');
+
     sendSuccess(res, 200, '更新使用者資料成功', updateUser);
   },
 
   getUserPosts: async (req, res, next) => {
     const { userId } = req.params;
+
     const userPosts = await Post.find({ user: userId })
       .populate({ path: 'user' })
       .populate({ path: 'comments' })
@@ -164,8 +168,8 @@ const usersController = {
     }
 
     const following = await Follow.findOne({ user: userId, following: targetUserId });
-    
-    if(!following) {
+
+    if (!following) {
       return next(appError(400, '未追蹤此用戶'));
     }
 
@@ -190,6 +194,19 @@ const usersController = {
 
   deleteUser: async (req, res, next) => {
     const { userId } = req.user;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return next(appError(400, '找不到會員'));
+    }
+
+    await User.findByIdAndDelete(userId);
+    sendSuccess(res, 200, '已刪除會員', []);
+  },
+
+  deleteUserAdmin: async (req, res, next) => {
+    const { userId } = req.user;
     const { targetUserId } = req.params;
 
     if (!targetUserId) {
@@ -210,5 +227,6 @@ const usersController = {
     sendSuccess(res, 200, '已刪除會員', []);
   }
 };
+
 
 module.exports = usersController;

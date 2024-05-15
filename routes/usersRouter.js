@@ -28,17 +28,11 @@ router.get('/:userId', handleErrorAsync(usersController.getUser)
      */
 );
 
-router.patch('/:userId', authJwt, handleErrorAsync(usersController.updateProfile)
+router.patch('/me/profile', authJwt, handleErrorAsync(usersController.updateProfile)
     /*  #swagger.tags = ['Users']
         #swagger.summary = '更新會員資料'
         #swagger.description = '更新會員資料' 
         #swagger.security = [{"apiKeyAuth": []}]
-        #swagger.parameters['userId'] = { 
-            in: 'path',
-            description: '會員 ID',
-            required: true,
-            type: 'string'
-        }
         #swagger.parameters['body'] = {
             in: 'body',
             description: '會員資料',
@@ -52,17 +46,11 @@ router.patch('/:userId', authJwt, handleErrorAsync(usersController.updateProfile
      */
 );
 
-router.patch('/:userId/password', authJwt, handleErrorAsync(usersController.resetPassword)
+router.patch('/me/password', authJwt, handleErrorAsync(usersController.resetPassword)
     /*  #swagger.tags = ['Users']
         #swagger.summary = '重設密碼'
         #swagger.description = '重設密碼'
         #swagger.security = [{"apiKeyAuth": []}] 
-        #swagger.parameters['userId'] = { 
-            in: 'path',
-            description: '會員 ID',
-            required: true,
-            type: 'string' 
-        }
         #swagger.parameters['body'] = {
             in: 'body',
             description: '新密碼',
@@ -76,10 +64,19 @@ router.patch('/:userId/password', authJwt, handleErrorAsync(usersController.rese
 
 // router.delete('/', authJwt, handleErrorAsync(usersController.deleteUsers));
 
-router.delete('/:userId', authJwt, handleErrorAsync(usersController.deleteUser)
+router.delete('/me', authJwt, handleErrorAsync(usersController.deleteUser)
+    /*  #swagger.tags = ['Users']
+        #swagger.summary = '刪除會員'
+        #swagger.description = '刪除會員' 
+        #swagger.security = [{"apiKeyAuth": []}]
+     */
+);
+
+
+router.delete('/:userId', authJwt, handleErrorAsync(usersController.deleteUserAdmin)
     /*  #swagger.tags = ['Users']
         #swagger.summary = '刪除特定會員'
-        #swagger.description = '刪除會員' 
+        #swagger.description = '刪除會員，需 admin 帳號權限' 
         #swagger.security = [{"apiKeyAuth": []}]
         #swagger.parameters['userId'] = { 
             in: 'path',
@@ -116,6 +113,7 @@ router.get('/:userId/followers', handleErrorAsync(usersController.getFollowers)
         }
      */
 );
+
 router.get('/:userId/followings', handleErrorAsync(usersController.getFollowings)
     /*  #swagger.tags = ['Users']
         #swagger.summary = '取得追蹤中名單'
@@ -128,6 +126,7 @@ router.get('/:userId/followings', handleErrorAsync(usersController.getFollowings
         }
      */
 );
+
 router.post('/me/followings/:targetUserId', authJwt, handleErrorAsync(usersController.followUser)
     /*  #swagger.tags = ['Users']
         #swagger.summary = '追蹤會員'
@@ -141,6 +140,7 @@ router.post('/me/followings/:targetUserId', authJwt, handleErrorAsync(usersContr
         }
      */
 );
+
 router.delete('/me/followings/:targetUserId', authJwt, handleErrorAsync(usersController.unfollowUser)
     /*  #swagger.tags = ['Users']
         #swagger.summary = '取消追蹤會員'
@@ -154,6 +154,7 @@ router.delete('/me/followings/:targetUserId', authJwt, handleErrorAsync(usersCon
         }
      */
 );
+
 // router.delete('/:userId/followings', handleErrorAsync(usersController.cleanFollowings));
 // router.delete('/:userId/followers', handleErrorAsync(usersController.cleanFollowers));
 
