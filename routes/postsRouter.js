@@ -50,7 +50,7 @@ router.get('/', handleErrorAsync(postController.getAllPosts)
     */
 );
 
-router.get('/:postId', authJwt, handleErrorAsync(postController.getPost)
+router.get('/:postId', handleErrorAsync(postController.getPost)
     /*
         #swagger.tags = ['Posts']
         #swagger.summary = '取得特定貼文'
