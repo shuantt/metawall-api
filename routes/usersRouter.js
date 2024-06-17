@@ -4,9 +4,6 @@ const usersController = require('../controllers/usersController.js');
 const { handleErrorAsync } = require('../utils/errorHandler.js');
 const { authJwt } = require('../service/authService.js');
 
-// 驗證 JWT Token
-// router.use(authJwt);
-
 // 會員相關 API
 router.get('/', handleErrorAsync(usersController.getUsers)
     /*  #swagger.tags = ['Users']
@@ -154,8 +151,5 @@ router.delete('/me/followings/:targetUserId', authJwt, handleErrorAsync(usersCon
         }
      */
 );
-
-// router.delete('/:userId/followings', handleErrorAsync(usersController.cleanFollowings));
-// router.delete('/:userId/followers', handleErrorAsync(usersController.cleanFollowers));
 
 module.exports = router;

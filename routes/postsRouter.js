@@ -116,10 +116,6 @@ router.delete('/:postId', authJwt, handleErrorAsync(postController.deletePost)
     */
 );
 
-
-// router.delete('/', authJwt, handleErrorAsync(postController.deletePosts));
-
-
 // 留言相關 API
 router.post('/:postId/comments', authJwt, handleErrorAsync(postController.createComment)
     /*
@@ -144,6 +140,7 @@ router.post('/:postId/comments', authJwt, handleErrorAsync(postController.create
     */
 );
 
+// 更新留言
 router.patch('/:postId/comments/:commentId', authJwt, handleErrorAsync(postController.updateComment)
     /*
         #swagger.tags = ['Posts']
@@ -227,21 +224,3 @@ router.delete('/:postId/likes', authJwt, handleErrorAsync(postController.unlikeP
 );
 
 module.exports = router;
-
-
-// #swagger.responses[400] = {
-//     description: '參數錯誤',
-//     schema: {
-//         success: false,
-//         message: '{錯誤說明}',
-//     }
-// }
-// #swagger.responses[401] = {
-//     description: '身分驗證失敗'
-// }
-// #swagger.responses[404] = {
-//     description: '無此路由'
-// }
-// #swagger.responses[500] = {
-//     description: '伺服器錯誤'
-// }

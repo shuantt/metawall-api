@@ -6,13 +6,10 @@ const { sendSuccess, sendError } = require('../utils/responseHandler.js');
 const { appError } = require('../utils/errorHandler.js');
 
 const postsController = {
+  // 取得所有貼文
   getAllPosts: async (req, res, next) => {
     let search = {};
-    let size = 100; //上限100筆 (之後要改成 cursor 分頁)
-
-    // if (req.query.userName) {
-    //   query['userInfo.userName'] = req.query.userName;
-    // }
+    let size = 100; //上限100筆
 
     if (req.query.startTime && req.query.endTime) {
       search.createdAt = { $gte: req.query.startTime, $lte: req.query.endTime };
@@ -36,6 +33,7 @@ const postsController = {
     sendSuccess(res, 200, '取得貼文成功', posts);
   },
 
+  // 取得單一貼文
   getPost: async (req, res, next) => {
     let { postId } = req.params;
 
@@ -51,6 +49,7 @@ const postsController = {
     sendSuccess(res, 200, '取得貼文成功', post);
   },
 
+  // 取得貼文留言
   createPost: async (req, res, next) => {
     let { content, image } = req.body;
     let userId = req.user.userId;
@@ -70,6 +69,7 @@ const postsController = {
     }
   },
 
+  // 修改貼文
   updatePost: async (req, res, next) => {
     let { postId } = req.params;
     let { content, image } = req.body;
@@ -97,14 +97,7 @@ const postsController = {
     }
   },
 
-  // deletePosts: async (req, res, next) => {
-  //   if (req.path === '/') {
-  //     return next(appError(res, 400, '欲刪除全部貼文請刪除路由末端斜線，欲刪除單筆貼文需提供 postId'));
-  //   }
-  //   const deleteResult = await Post.deleteMany({});
-  //   sendSuccess(res, 200, '刪除全部貼文成功', deleteResult);
-  // },
-
+  // 刪除貼文
   deletePost: async (req, res, next) => {
     let { postId } = req.params;
     let { userId } = req.user;
@@ -131,6 +124,7 @@ const postsController = {
     }
   },
 
+  // 新增留言
   createComment: async (req, res, next) => {
     let { postId } = req.params;
     let { userId } = req.user;
@@ -156,6 +150,7 @@ const postsController = {
     }
   },
 
+  // 修改留言
   updateComment: async (req, res, next) => {
     let { postId, commentId } = req.params;
     let { content } = req.body;
@@ -181,6 +176,7 @@ const postsController = {
     }
   },
 
+  // 刪除留言
   deleteComment: async (req, res, next) => {
     let { userId } = req.user;
     let { postId, commentId } = req.params;
@@ -211,6 +207,7 @@ const postsController = {
     }
   },
 
+  // 按讚
   likePost: async (req, res, next) => {
     let { postId } = req.params;
     let { userId } = req.user;
@@ -235,6 +232,7 @@ const postsController = {
     }
   },
 
+  // 取消按讚
   unlikePost: async (req, res, next) => {
     let { postId } = req.params;
     let { userId } = req.user;

@@ -10,7 +10,8 @@ const doc = {
         title: 'Metawall API',
         description: 'Metawall API Documentation ',
     },
-    host: '127.0.0.1:3000',
+    // host: '127.0.0.1:3000',
+    host: 'https://metawall-api-iu1y.onrender.com/',
     basePath: '/',
     schemes: ['http', 'https'],
     tags: [

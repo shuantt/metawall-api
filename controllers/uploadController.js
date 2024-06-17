@@ -6,6 +6,7 @@ const firebaseAdmin = require('../connections/firebaseConnection.js');
 const bucket = firebaseAdmin.storage().bucket();
 
 const uploadController = {
+    // 上傳圖片
     uploadImage: async (req, res, next) => {
         if (!req.files) {
             return next(appError(400, '請上傳圖片', next));

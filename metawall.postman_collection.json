@@ -1,0 +1,956 @@
+{
+	"info": {
+		"_postman_id": "73788f88-3e2f-456c-978e-6fc0eee7034c",
+		"name": "metawall",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23424573"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "會員註冊",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2I4NDY5ZjFhMGRiNDQ1Yzc3ZjAxMSIsIm5hbWUiOiLnkYTlr7YiLCJpYXQiOjE3MTUxNzY1NTMsImV4cCI6MTcxNTI2Mjk1M30.xRN7kHBS2p4I-56D4bz_CtxmWTif5xQ_Ya3cSh2Mucg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"寧妃\",\r\n    \"email\":\"ninin@gmail.com\",\r\n    \"password\":\"Aa123456\",\r\n    \"confirmPassword\":\"Aa123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/auth/signup",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "會員登入",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"newhulu@gmail.com\",\r\n    \"password\":\"Aa123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/auth/signin",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "取得全部會員",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": [
+								{
+									"key": "payload",
+									"value": "{\r\n    \r\n}",
+									"type": "string"
+								},
+								{
+									"key": "secret",
+									"value": "Aa123456",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "isSecretBase64Encoded",
+									"value": false,
+									"type": "boolean"
+								},
+								{
+									"key": "algorithm",
+									"value": "HS256",
+									"type": "string"
+								},
+								{
+									"key": "headerPrefix",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "queryParamKey",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "header",
+									"value": "{}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/users",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得特定會員",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/users/66703a3725c14b4c3352d4ba",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"users",
+								"66703a3725c14b4c3352d4ba"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改會員密碼",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzAzNzdmMjVjMTRiNGMzMzUyZDQ5NSIsIm5hbWUiOiLnn6Xkurrnn6XpnaLkuI3nn6XolqoiLCJpYXQiOjE3MTg2MzAzMTAsImV4cCI6MTcxOTIzNTExMH0.ymOH5ZB1XT1HaYAvuItv8qKAb2R4GdQt4uiSA5nncO4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\":\"Aa123456@\",\r\n    \"confirmPassword\":\"Aa123456@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/users/me/password",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"users",
+								"me",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改會員資料",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzAzYTM3MjVjMTRiNGMzMzUyZDRiYSIsIm5hbWUiOiIg6YiV5ZG856W_wrfnlITnkrAiLCJpYXQiOjE3MTg2MzE0NjIsImV4cCI6MTcxOTIzNjI2Mn0.7shYIw68AJ6sQ610PZ_BFONa4RxaVmDaGctWsgvnGOI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"鈕祜祿·甄嬛\",\r\n    \"photo\":\"https://storage.googleapis.com/metawall-f1f99.appspot.com/images/333cf0bc-3e1a-4f4f-800e-5b1f4402f97e.jpg?GoogleAccessId=firebase-adminsdk-xyftp%40metawall-f1f99.iam.gserviceaccount.com&Expires=16730323200&Signature=U32a4rqIhR5EUKA7xZtSmteMyo9kNuKyB4m7VU4pZbFwr%2FJJpqKwRxgUfUiks1NaRj2%2F4APjacLyWroYDZen4LQnVFEr%2BaCLzVI9gJ1GyKAUzu%2Bwq9DWp2QHqqb7KJ2qEydPhziEdLR0PvMbzZXft0w5BDj65qHL85LXkLvLy6c8txaUfkKrpoTVDKd79uYux9CKbducYlmTxHsczC%2FWJU3vOHrZmE68ZwJ5XjTD7jZPJfaOKyuTkGOJB3fq4HxZzZcjymIlWlx0BJMKMzMpsZmtpitbmmzONc2aSsbUGiZxAM0D98vXt9AHrqClwOn0yUyHoWL4iBogfQIsoq9MbA%3D%3D\",\r\n    \"gender\":\"female\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/users/me/profile",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"users",
+								"me",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得會員全部貼文",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/users/66703a3725c14b4c3352d4ba/posts",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"users",
+								"66703a3725c14b4c3352d4ba",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得追蹤中會員",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/users/66703a3725c14b4c3352d4ba/followings",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"users",
+								"66703a3725c14b4c3352d4ba",
+								"followings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得追隨者",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/users/66703a3725c14b4c3352d4ba/followers",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"users",
+								"66703a3725c14b4c3352d4ba",
+								"followers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "刪除會員",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2M2MDI0NzI0NDdjMmNmNGFiYzQwMyIsIm5hbWUiOiLnrqHnkIblk6HnkYTnkYQiLCJpYXQiOjE3MTg2MzE2OTMsImV4cCI6MTcxOTIzNjQ5M30.J3YeBLGBCeTLQDsTVlxcSt3JW4SpoGDpm6wRitT3tkU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/users/me",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "追蹤用戶",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzAzYTM3MjVjMTRiNGMzMzUyZDRiYSIsIm5hbWUiOiLpiJXnpZznpb_Ct-eUhOWsmyIsImlhdCI6MTcxODYzMzU1NCwiZXhwIjoxNzE5MjM4MzU0fQ.rDK1PTCOn6_ptLfUoNOpc0-zRmQNg4hf6vdfOr179Sc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/users/me/followings/6670428325c14b4c3352d56c",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"users",
+								"me",
+								"followings",
+								"6670428325c14b4c3352d56c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取消追蹤",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzAzYTM3MjVjMTRiNGMzMzUyZDRiYSIsIm5hbWUiOiLpiJXnpZznpb_Ct-eUhOWsmyIsImlhdCI6MTcxODYzMTkzOCwiZXhwIjoxNzE5MjM2NzM4fQ.Yuxwz25LP-FWsQ1XS2z5oYI0r6ucLb6jCFGx8F2Tunk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/users/me/followings/66703bc325c14b4c3352d4d1",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"users",
+								"me",
+								"followings",
+								"66703bc325c14b4c3352d4d1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "posts",
+			"item": [
+				{
+					"name": "取得全部貼文",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/posts",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得單則貼文",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzAzNzdmMjVjMTRiNGMzMzUyZDQ5NSIsIm5hbWUiOiLnn6Xkurrnn6XpnaLkuI3nn6XolqoiLCJpYXQiOjE3MTg2MzAzMTAsImV4cCI6MTcxOTIzNTExMH0.ymOH5ZB1XT1HaYAvuItv8qKAb2R4GdQt4uiSA5nncO4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/posts/66703a6125c14b4c3352d4c0",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"posts",
+								"66703a6125c14b4c3352d4c0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增貼文",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzAzYTM3MjVjMTRiNGMzMzUyZDRiYSIsIm5hbWUiOiIg6YiV5ZG856W_wrfnlITnkrAiLCJpYXQiOjE3MTg2MzA5NjcsImV4cCI6MTcxOTIzNTc2N30.9xTGbU8sPMueBNNqOERDBIv1ZnHvyOw06iLzBgWlKpY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\":\"有人能幫我毒死胖四郎嗎？\",\r\n    \"image\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/posts",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改貼文",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDFhODE3MGY0OTFhY2Y3ODJmZDZlMiIsIm5hbWUiOiLlgpHlsLzluKXpvpwiLCJpYXQiOjE3MTU2NTE4MjcsImV4cCI6MTcxNjI1NjYyN30.nPMYHurFSSxRnmm9XYFdohPj7pX4FMYQKMlt75g-T7M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\":\"小智是個大渣男!\",\r\n    \"image\":\"https:domain/photo12345678/images/kpakpevaemh0wea\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/posts/6642c32fe43c0979367924cf",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"posts",
+								"6642c32fe43c0979367924cf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "刪除單則貼文",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzAzYTM3MjVjMTRiNGMzMzUyZDRiYSIsIm5hbWUiOiLpiJXnpZznpb_Ct-eUhOWsmyIsImlhdCI6MTcxODYzMzAyNSwiZXhwIjoxNzE5MjM3ODI1fQ.awxPCSVnm4_AN2vQfv9xmnDK87gOXxTSkG-qB6CE5vo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/posts/6670422225c14b4c3352d55c",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"posts",
+								"6670422225c14b4c3352d55c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "貼文按讚",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzA0MjgzMjVjMTRiNGMzMzUyZDU2YyIsIm5hbWUiOiLlr6flpoMiLCJpYXQiOjE3MTg2MzMwOTEsImV4cCI6MTcxOTIzNzg5MX0.vN7k2iCe8_Kyycx90xYpXcDgkFWkqH64nps9oJM9Tdw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/posts/6670422025c14b4c3352d559/likes",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"posts",
+								"6670422025c14b4c3352d559",
+								"likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "貼文收回讚",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDFhMzIwYzFiMDIxNjQ5MGUzNDFmMSIsIm5hbWUiOiLnkYTlr7YiLCJpYXQiOjE3MTU1Nzc2MzIsImV4cCI6MTcxNjE4MjQzMn0.IGphvumQqmtcjJc4-0qlunaEcRxReTBD2EEIEFEG3lo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/posts/6641a347c1b0216490e341f4/likes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"posts",
+								"6641a347c1b0216490e341f4",
+								"likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增留言",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzA0MjgzMjVjMTRiNGMzMzUyZDU2YyIsIm5hbWUiOiLlr6flpoMiLCJpYXQiOjE3MTg2MzMwOTEsImV4cCI6MTcxOTIzNzg5MX0.vN7k2iCe8_Kyycx90xYpXcDgkFWkqH64nps9oJM9Tdw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\":\"噓，別嚷嚷，差不多在3天就全劇中了\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/posts/6670422025c14b4c3352d559/comments",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"posts",
+								"6670422025c14b4c3352d559",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改留言",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzAzYWIxMjVjMTRiNGMzMzUyZDRjNyIsIm5hbWUiOiIg5rKI55yJ6I6KIiwiaWF0IjoxNzE4NjMyNTUyLCJleHAiOjE3MTkyMzczNTJ9.JgUfBcqFYJWiKSyXtqkntRBxiOHU1HGS-nxALgVekow",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\":\"嬛兒，莫又讓胖四郎聽到這句，快刪了吧!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/posts/66703fe825c14b4c3352d52d/comments/667040e925c14b4c3352d541",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"posts",
+								"66703fe825c14b4c3352d52d",
+								"comments",
+								"667040e925c14b4c3352d541"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "刪除留言",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzAzYWIxMjVjMTRiNGMzMzUyZDRjNyIsIm5hbWUiOiIg5rKI55yJ6I6KIiwiaWF0IjoxNzE4NjMyNTUyLCJleHAiOjE3MTkyMzczNTJ9.JgUfBcqFYJWiKSyXtqkntRBxiOHU1HGS-nxALgVekow",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/posts/66703fe825c14b4c3352d52d/comments/667041b725c14b4c3352d54f",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"posts",
+								"66703fe825c14b4c3352d52d",
+								"comments",
+								"667041b725c14b4c3352d54f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "upload",
+			"item": [
+				{
+					"name": "圖片上傳",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzAzYTM3MjVjMTRiNGMzMzUyZDRiYSIsIm5hbWUiOiIg6YiV5ZG856W_wrfnlITnkrAiLCJpYXQiOjE3MTg2MzE0NjIsImV4cCI6MTcxOTIzNjI2Mn0.7shYIw68AJ6sQ610PZ_BFONa4RxaVmDaGctWsgvnGOI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": "/C:/Users/Te Hsuan/Pictures/11.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://metawall-api-iu1y.onrender.com/upload/file",
+							"protocol": "https",
+							"host": [
+								"metawall-api-iu1y",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"upload",
+								"file"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

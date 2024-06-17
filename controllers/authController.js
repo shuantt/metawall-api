@@ -47,6 +47,7 @@ const authController = {
 
     sendSuccess(res, 200, '註冊成功', rtnUserData);
   },
+  
   signIn: async (req, res, next) => {
     let { email, password } = req.body;
 

@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const User = require('../models/usersModel');
 const Post = require('../models/postsModel');
 const Follow = require('../models/followsModel');
@@ -8,11 +7,81 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
 const usersController = {
+  // 註冊
+  signUp: async (req, res, next) => {
+    let { name, email, password, confirmPassword, adminPassword } = req.body;
+    if (!name || !email || !password || !confirmPassword) {
+      return next(appError(400, 'name, email, password, confirmPassword 不可為空'));
+    }
+
+    if (password !== confirmPassword) {
+      return next(appError(400, '密碼不一致'));
+    }
+
+    if (validator.isEmail(email) === false) {
+      return next(appError(400, 'Email格式錯誤'));
+    }
+
+    if (validator.isLength(password, { min: 8, max: 20 }) === false) {
+      return next(appError(400, '密碼長度需在8-20字元'));
+    }
+
+
+    // 檢查 email 是否已經註冊
+    const user = await User.findOne({ email });
+    if (user) {
+      return next(appError(400, 'Email已註冊'));
+    }
+
+    //jwt加密
+    password = await bcrypt.hash(password, 12);
+
+    // 建立使用者
+    const newUser = await User.create({
+      name: name,
+      email: email,
+      password: password,
+    });
+
+    const token = generateJwt(newUser);
+    const rtnUserData = { userId: newUser._id, name: newUser.name, token: token };
+
+    sendSuccess(res, 200, '註冊成功', rtnUserData);
+  },
+
+  // 登入
+  signIn: async (req, res, next) => {
+    let { email, password } = req.body;
+
+    if (!email || !password) {
+      return next(appError(400, 'email, password 不可為空'));
+    }
+
+    const user = await User.findOne({ email }).select('+password');
+
+    if (!user) {
+      return next(appError(400, 'email 未註冊'));
+    }
+
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordMatch) {
+      return next(appError(400, '密碼錯誤'));
+    }
+
+    const token = generateJwt(user);
+    const rtnUserData = { name: user.name, token: token };
+
+    sendSuccess(res, 200, '登入成功', rtnUserData);
+  },
+
+  // 取得全部使用者
   getUsers: async (req, res, next) => {
     const users = await User.find().select('email name photo gender');
     sendSuccess(res, 200, '取得使用者成功', users);
   },
 
+  // 取得使用者
   getUser: async (req, res, next) => {
     const { userId } = req.params;
     const user = await User.findById(userId)
@@ -33,6 +102,7 @@ const usersController = {
     sendSuccess(res, 200, '取得使用者成功', user);
   },
 
+  // 修改密碼
   resetPassword: async (req, res, next) => {
     let { userId } = req.user;
     let { password, confirmPassword } = req.body;
@@ -66,13 +136,10 @@ const usersController = {
     sendSuccess(res, 200, '密碼修改成功');
   },
 
+  // 修改使用者資料
   updateProfile: async (req, res, next) => {
     const { userId } = req.user;
     let { name, photo, gender } = req.body;
-
-    // if (!name || !photo || !gender) {
-    //   return next(appError(400, 'name 為必填'));
-    // }
 
     const user = await User.findById(userId);
 
@@ -89,6 +156,7 @@ const usersController = {
     sendSuccess(res, 200, '更新使用者資料成功', updateUser);
   },
 
+  // 取得使用者貼文
   getUserPosts: async (req, res, next) => {
     const { userId } = req.params;
 
@@ -105,6 +173,7 @@ const usersController = {
     }
   },
 
+  // 取得追隨者
   getFollowers: async (req, res, next) => {
     const { userId } = req.params;
     if (!userId) {
@@ -122,6 +191,7 @@ const usersController = {
     sendSuccess(res, 200, '取得追隨者資料', followers);
   },
 
+  // 取得追蹤中
   getFollowings: async (req, res, next) => {
     const { userId } = req.params;
 
@@ -138,6 +208,7 @@ const usersController = {
     sendSuccess(res, 200, '取得用戶追蹤資料', followings);
   },
 
+  // 追蹤用戶
   followUser: async (req, res, next) => {
     const { userId } = req.user;
     const { targetUserId } = req.params;
@@ -159,6 +230,7 @@ const usersController = {
     }
   },
 
+  // 取消追蹤
   unfollowUser: async (req, res, next) => {
     const { userId } = req.user;
     const { targetUserId } = req.params;
@@ -182,16 +254,7 @@ const usersController = {
     }
   },
 
-  // deleteUsers: async (req, res, next) => {
-  //   let { userId } = req.user;
-  //   const isAdmin = await User.findById(userId).select('isAdmin');
-  //   if (!isAdmin) {
-  //     return next(appError(400, '無刪除權限'));
-  //   }
-  //   const deleteResult = await User.deleteMany({});
-  //   sendSuccess(res, 200, '刪除所有使用者成功', []);
-  // },
-
+  // 刪除使用者
   deleteUser: async (req, res, next) => {
     const { userId } = req.user;
 
@@ -205,6 +268,7 @@ const usersController = {
     sendSuccess(res, 200, '已刪除會員', []);
   },
 
+  // 管理員刪除使用者
   deleteUserAdmin: async (req, res, next) => {
     const { userId } = req.user;
     const { targetUserId } = req.params;
@@ -227,6 +291,5 @@ const usersController = {
     sendSuccess(res, 200, '已刪除會員', []);
   }
 };
-
 
 module.exports = usersController;
