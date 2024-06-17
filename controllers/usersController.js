@@ -273,6 +273,10 @@ const usersController = {
     const { userId } = req.user;
     const { targetUserId } = req.params;
 
+    if (user.role !== 'admin'){
+      return next(appError(400, '無刪除權限'));
+    }
+
     if (!targetUserId) {
       return next(appError(400, '請輸入欲刪除會員 Id'));
     }
@@ -283,7 +287,7 @@ const usersController = {
       return next(appError(400, '找不到會員'));
     }
 
-    if (userId !== targetUserId && user.role !== 'admin') {
+    if (userId !== targetUserId) {
       return next(appError(400, '無刪除權限'));
     }
 

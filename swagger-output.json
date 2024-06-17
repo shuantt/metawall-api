@@ -65,7 +65,7 @@
               "properties": {
                 "email": {
                   "type": "string",
-                  "example": "newhulu@gmail.com"
+                  "example": "test@gmail.com"
                 },
                 "password": {
                   "type": "string",
@@ -203,8 +203,8 @@
         "tags": [
           "Users"
         ],
-        "summary": "更新會員資料",
-        "description": "更新會員資料",
+        "summary": "更新登入會員資料",
+        "description": "更新登入會員資料",
         "parameters": [
           {
             "name": "body",
@@ -250,8 +250,8 @@
         "tags": [
           "Users"
         ],
-        "summary": "重設密碼",
-        "description": "重設密碼",
+        "summary": "重設登入會員密碼",
+        "description": "重設登入會員密碼",
         "parameters": [
           {
             "name": "body",
@@ -294,8 +294,8 @@
         "tags": [
           "Users"
         ],
-        "summary": "刪除會員",
-        "description": "刪除會員",
+        "summary": "刪除登入會員",
+        "description": "刪除登入會員",
         "responses": {
           "default": {
             "description": ""
@@ -382,8 +382,8 @@
         "tags": [
           "Users"
         ],
-        "summary": "追蹤會員",
-        "description": "追蹤會員",
+        "summary": "登入會員新增追蹤會員",
+        "description": "登入會員新增追蹤會員",
         "parameters": [
           {
             "name": "targetUserId",
@@ -408,8 +408,8 @@
         "tags": [
           "Users"
         ],
-        "summary": "取消追蹤會員",
-        "description": "取消追蹤會員",
+        "summary": "登入會員退追其他會員",
+        "description": "登入會員退追其他會員",
         "parameters": [
           {
             "name": "targetUserId",

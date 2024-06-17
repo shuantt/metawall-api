@@ -13,7 +13,7 @@ router.post('/signin', handleErrorAsync(authController.signIn)
         description: '登入資訊',
         required: true,
         schema: {
-                $email: 'newhulu@gmail.com',
+                $email: 'test@gmail.com',
                 $password: 'Aa123456'
             }
         }
