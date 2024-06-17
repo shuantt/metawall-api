@@ -13,7 +13,7 @@ const doc = {
     // host: 'localhost:3000',
     host: 'metawall-api-iu1y.onrender.com',
     basePath: '/',
-    schemes: ['http', 'https'],
+    schemes: ['https'],
     tags: [
         {
             name: 'Auth',
