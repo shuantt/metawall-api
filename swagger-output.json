@@ -5,7 +5,7 @@
     "title": "Metawall API",
     "description": "Metawall API Documentation "
   },
-  "host": "https://metawall-api-iu1y.onrender.com/",
+  "host": "metawall-api-iu1y.onrender.com",
   "basePath": "/",
   "tags": [
     {

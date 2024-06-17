@@ -11,7 +11,7 @@ const doc = {
         description: 'Metawall API Documentation ',
     },
     // host: 'localhost:3000',
-    host: 'https://metawall-api-iu1y.onrender.com/',
+    host: 'metawall-api-iu1y.onrender.com',
     basePath: '/',
     schemes: ['http', 'https'],
     tags: [
