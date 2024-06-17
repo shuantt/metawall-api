@@ -35,8 +35,8 @@ router.patch('/me/profile', authJwt, handleErrorAsync(usersController.updateProf
             description: '會員資料',
             required: true,
             schema: { 
-                $name: 'shuantt',
-                photo: 'url',
+                $name: '換個名字',
+                photo: 'https://metawall.com/image1',
                 gender: 'female',
             }
         }
@@ -53,7 +53,8 @@ router.patch('/me/password', authJwt, handleErrorAsync(usersController.resetPass
             description: '新密碼',
             required: true,
             schema: { 
-                $password: '123456'
+                $password: 'Aa123456',
+                $confirmPassword: 'Aa123456'
             }
         }
      */

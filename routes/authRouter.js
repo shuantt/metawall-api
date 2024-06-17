@@ -13,8 +13,8 @@ router.post('/signin', handleErrorAsync(authController.signIn)
         description: '登入資訊',
         required: true,
         schema: {
-                $email: 'test@gmail.com',
-                $password: 'Abc123456'
+                $email: 'newhulu@gmail.com',
+                $password: 'Aa123456'
             }
         }
      */
@@ -30,10 +30,10 @@ router.post('/signup', handleErrorAsync(authController.signUp)
         description: '註冊資訊',
         required: true,
         schema: {
-                $name: 'shuantisagenius',
-                $email: 'shuantt@gmail.com',
-                $password: 'A123456789',
-                $confirmPassword:'A123456789'
+                $name: '祺貴人',
+                $email: 'kiki@gmail.com',
+                $password: 'Aa123456',
+                $confirmPassword:'Aa123456'
             }
         }
     */

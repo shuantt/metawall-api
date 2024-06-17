@@ -7,7 +7,8 @@ const upload = require('../service/uploadService.js');
 
 router.post('/file', authJwt, upload, handleErrorAsync(uploadController.uploadImage)
     /*  #swagger.tags = ['Upload']
-        #swagger.description = '上傳圖片'
+        #swagger.summary = '上傳單張圖片'
+        #swagger.description = '上傳單張圖片'
         #swagger.security = [{"apiKeyAuth": []}]
         #swagger.parameters['file'] = {
             in: 'formData',

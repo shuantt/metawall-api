@@ -75,8 +75,8 @@ router.post('/', authJwt, handleErrorAsync(postController.createPost)
             description: '新增貼文資訊',
             required: true,
             schema: {
-                $content: '這是一篇測試文章',
-                image: 'img-url'
+                $content: '哈囉，你好嗎~~~',
+                image: 'https://metawall/image2'
             }
         }
      */
@@ -134,7 +134,8 @@ router.post('/:postId/comments', authJwt, handleErrorAsync(postController.create
             description: '新增留言資訊',
             required: true,
             schema: {
-                $content: '小智是個大渣男!'
+                $content: '小智是個大渣男!',
+                image: 'https://metawall/image2'
             }
         }
     */

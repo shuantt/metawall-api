@@ -58,7 +58,10 @@ const postsController = {
       return next(appError(400, '會員 id 和 貼文內容 為必填欄位'));
     }
 
-    const newPost = { user: userId, content: content, image: image };
+    let newPost = {}
+    newPost.user = userId;
+    newPost.content = content;
+    if (image) newPost.image = image;
 
     const result = await Post.create(newPost);
 
